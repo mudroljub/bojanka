@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<head>
+	<title>Crtanka</title>
+	<style>
+	body {
+		background:#eee;
+		padding:0 20px 20px 20px;
+		cursor: url(kist.png), cell;
+		-webkit-user-select: none;  
+		-moz-user-select: none;    
+		-ms-user-select: none;      
+		user-select: none;
+	}
+	canvas {
+		width:90%;
+		height:90%;
+		background:#fff;
+		border:3px solid purple;
+		border-radius:40px;
+		margin-top:10px;
+	}
+	.boja {
+		width:50px;
+		height:50px;
+		margin:5px;
+		display:inline-block;
+		vertical-align:top;
+		border-radius:50%;
+		border:1px solid gray;
+	}
+	.bela {
+		background:white;
+	}
+	#brisac{
+		width:50px;
+		height:50px;
+		margin:5px;
+		display:inline-block;
+		vertical-align:top;
+		border:3px solid purple;
+		border-radius:15px;
+		background:white;
+	}
+	</style>
+</head>
+<body onload="deliSlucajneBoje()">
+
+	<div class="boja bela" onclick="uzmiBoju(this)"></div>
+	<div class="boja" onclick="uzmiBoju(this)"></div>
+	<div class="boja" onclick="uzmiBoju(this)"></div>
+	<div class="boja" onclick="uzmiBoju(this)"></div>
+	<div class="boja" onclick="uzmiBoju(this)"></div>
+	<div class="boja" onclick="uzmiBoju(this)"></div>
+	<div class="boja" onclick="uzmiBoju(this)"></div>
+	<div class="boja" onclick="uzmiBoju(this)"></div>
+	<div class="boja" onclick="uzmiBoju(this)"></div>
+	<div class="boja" onclick="uzmiBoju(this)"></div>
+	<div class="boja" onclick="uzmiBoju(this)"></div>
+	<div class="boja" onclick="uzmiBoju(this)"></div>
+	
+	<div id="brisac" onclick="obrisiPlatno()"></div>
+
+	<canvas id="platno" width="800" height="600" onmousemove="lepoCrtaj(event)" onmousedown="premostiRazmak(event)"></canvas>
+
+<script>
+var platno = document.getElementById("platno");
+var sadrzaj = platno.getContext("2d");
+var izabrana_boja;
+
+function slucajnaBoja() {
+	color = 'rgb(';
+	for (var i = 0; i < 3; i++) {
+		color += Math.floor(Math.random() * 255) + ',';
+	}
+	return color.replace(/\,$/, ')');
+}
+
+function deliSlucajneBoje() {
+	var boje = document.getElementsByClassName("boja");
+	for (var i=1; i < boje.length; i++) {
+		boje[i].style.backgroundColor = slucajnaBoja();
+	}
+	izabrana_boja = boje[boje.length-1].style.backgroundColor;	// pamti poslednju za miš
+}
+
+function uzmiBoju(ovaj_element){
+	izabrana_boja = ovaj_element.style.backgroundColor;
+}
+
+function lepoCrtaj(e) {
+	if (levoDugmePritisnuto()) {
+		sadrzaj.beginPath();
+		sadrzaj.moveTo(this.X - 20, this.Y - 75);				// cilja centar četkice
+		sadrzaj.lineCap = 'round';
+		sadrzaj.lineWidth = 20;
+		sadrzaj.lineTo(e.pageX - 20, e.pageY - 75);			
+		sadrzaj.strokeStyle = izabrana_boja;
+		sadrzaj.stroke();
+		// pomera početnu poziciju do pozicije miša
+		this.X = e.pageX;
+		this.Y = e.pageY;
+	}
+}
+
+function levoDugmePritisnuto(evt) {
+    evt = evt || window.event;
+    var button = evt.which || evt.button;
+    return button == 1;
+}
+
+function premostiRazmak(e){
+	this.X = e.pageX;
+	this.Y = e.pageY;
+}
+
+function obrisiPlatno(){
+	sadrzaj.fillStyle = '#fff';
+	sadrzaj.fillRect(0,0, platno.width, platno.height);
+	deliSlucajneBoje();
+}
+</script>
+
+</body>
+</html>
