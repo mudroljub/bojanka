@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Crtanka2</title>
+	<meta charset="utf-8">
+	
+	<style>
+	body { 
+		background:#000; 
+		margin:0px; 
+		padding:0px; 
+		overflow:hidden; 
+	}
+	.drzac-boje{
+		position:absolute;
+		top:0;
+		left:50px;
+	}
+	.boja {
+		width:50px;
+		height:50px;
+		margin:5px;
+		display:inline-block;
+		vertical-align:top;
+		border-radius:50%;
+		border:1px solid gray;
+		background:white;
+	}
+	.bela {
+		background:white;
+	}
+	#brisac{
+		width:50px;
+		height:50px;
+		margin:5px;
+		display:inline-block;
+		vertical-align:top;
+		border:3px solid purple;
+		border-radius:15px;
+		background:white;
+	}
+	</style>
+	
+</head>
+<body onload="praviPaletu()">
+	
+	<div class="drzac-boje">
+		<div class="boja bela"></div>
+		<div class="boja"></div>
+		<div class="boja"></div>
+		<div class="boja"></div>
+		<div class="boja"></div>
+		<div class="boja"></div>
+		<div class="boja"></div>
+		<div class="boja"></div>
+		<div class="boja"></div>
+		<div class="boja"></div>
+		<div class="boja"></div>
+		<div class="boja"></div>
+		<div id="brisac" onclick="obrisiPlatno()"></div>	
+	</div>
+	
+	<canvas id="platno" onmouseup="pritisnuto=false;" onmousedown="pritisnuto=true;"></canvas>
+	
+</body>
+</html>
+
+<script>
+var platno = document.getElementById('platno');
+var sadrzaj = platno.getContext('2d');
+var boje = document.getElementsByClassName("boja");
+var pritisnuto;
+
+platno.width = window.innerWidth;
+platno.height = window.innerHeight;
+
+// pravi paletu i funkciju za hvatanje boja
+function praviPaletu(){
+	for(var i = 1; i < boje.length; i++) {
+		boje[i].style.backgroundColor = slucajnaBoja();
+		boje[i].addEventListener("click", function(){
+			platno.color = this.style.backgroundColor;
+		});
+	} // kraj for	
+}
+
+// podrazumeva boju za crtanje
+platno.color = boje[boje.length-1].style.backgroundColor;
+
+platno.addEventListener('mousedown', function(e) {
+	this.X = e.pageX;
+	this.Y = e.pageY;
+}, 0);
+
+platno.addEventListener('mousemove', function(e) {
+	this.style.cursor = 'pointer';
+	if (pritisnuto) {
+		sadrzaj.beginPath();
+		sadrzaj.moveTo(this.X, this.Y);
+		sadrzaj.lineCap = 'round';
+		sadrzaj.lineWidth = 3;
+		sadrzaj.lineTo(e.pageX, e.pageY);
+		sadrzaj.strokeStyle = this.color;
+		sadrzaj.stroke();
+
+		this.X = e.pageX;
+		this.Y = e.pageY;
+	}
+}, 0);
+
+function slucajnaBoja() {
+	color = 'rgb(';
+	for (var i = 0; i < 3; i++) {
+		color += Math.floor(Math.random() * 255) + ',';
+	}
+	return color.replace(/\,$/, ')');
+}
+
+function obrisiPlatno(){
+	sadrzaj.fillStyle = '#000';
+	sadrzaj.fillRect(0,0, platno.width, platno.height);
+	praviPaletu();
+}
+</script>
