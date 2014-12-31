@@ -2,6 +2,7 @@
 <html>
 <head>
 	<title>Crtanka</title>
+	<meta charset="utf-8">
 	<style>
 	body {
 		background:#eee;
@@ -44,7 +45,7 @@
 	}
 	</style>
 </head>
-<body onload="deliSlucajneBoje()">
+<body onload="deliSlucajneBoje()" onmouseup="pritisnuto=false;" onmousedown="pritisnuto=true;">
 
 	<div class="boja bela" onclick="uzmiBoju(this)"></div>
 	<div class="boja" onclick="uzmiBoju(this)"></div>
@@ -58,7 +59,6 @@
 	<div class="boja" onclick="uzmiBoju(this)"></div>
 	<div class="boja" onclick="uzmiBoju(this)"></div>
 	<div class="boja" onclick="uzmiBoju(this)"></div>
-	
 	<div id="brisac" onclick="obrisiPlatno()"></div>
 
 	<canvas id="platno" width="800" height="600" onmousemove="lepoCrtaj(event)" onmousedown="premostiRazmak(event)"></canvas>
@@ -67,6 +67,7 @@
 var platno = document.getElementById("platno");
 var sadrzaj = platno.getContext("2d");
 var izabrana_boja;
+var pritisnuto;
 
 function slucajnaBoja() {
 	color = 'rgb(';
@@ -89,7 +90,7 @@ function uzmiBoju(ovaj_element){
 }
 
 function lepoCrtaj(e) {
-	if (levoDugmePritisnuto()) {
+	if (pritisnuto) {
 		sadrzaj.beginPath();
 		sadrzaj.moveTo(this.X - 20, this.Y - 75);				// cilja centar četkice
 		sadrzaj.lineCap = 'round';
@@ -101,12 +102,6 @@ function lepoCrtaj(e) {
 		this.X = e.pageX;
 		this.Y = e.pageY;
 	}
-}
-
-function levoDugmePritisnuto(evt) {
-    evt = evt || window.event;
-    var button = evt.which || evt.button;
-    return button == 1;
 }
 
 function premostiRazmak(e){
