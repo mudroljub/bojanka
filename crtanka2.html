@@ -3,23 +3,16 @@
 <head>
 	<title>Crtanka2</title>
 	<meta charset="utf-8">
-	
 	<style>
 	body { 
 		background:#eee; 
 		margin:0px; 
 		padding:0px; 
-		overflow:hidden; 
 	}
 	canvas {
 		background:#fff;
 		border:3px solid purple;
 		border-radius:40px; 	
-	}
-	.drzac-boje{
-		position:absolute;
-		top:91%;
-		left:20px;
 	}
 	.boja {
 		width:50px;
@@ -47,7 +40,9 @@
 	</style>
 	
 </head>
-<body onload="praviPaletu()">
+<body onload="praviPaletu(); rastegniPlatno()" onresize="rastegniPlatno()">
+	
+	<canvas id="platno" onmouseup="pritisnuto=false;" onmousedown="pritisnuto=true;"></canvas>
 	
 	<div class="drzac-boje">
 		<div class="boja bela"></div>
@@ -64,9 +59,7 @@
 		<div class="boja"></div>
 		<div id="brisac" onclick="obrisiPlatno()"></div>	
 	</div>
-	
-	<canvas id="platno" onmouseup="pritisnuto=false;" onmousedown="pritisnuto=true;"></canvas>
-	
+		
 </body>
 </html>
 
@@ -76,10 +69,11 @@ var sadrzaj = platno.getContext('2d');
 var boje = document.getElementsByClassName("boja");
 var pritisnuto;
 
-platno.width = window.innerWidth * 0.9;
-platno.height = window.innerHeight * 0.9;
+function rastegniPlatno(){
+	platno.width = window.innerWidth * 0.9;
+	platno.height = window.innerHeight * 0.9;	
+}
 
-// pravi paletu i funkciju za hvatanje boja
 function praviPaletu(){
 	for(var i = 1; i < boje.length; i++) {
 		boje[i].style.backgroundColor = slucajnaBoja();
