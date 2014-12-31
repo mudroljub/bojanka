@@ -6,15 +6,20 @@
 	
 	<style>
 	body { 
-		background:#000; 
+		background:#eee; 
 		margin:0px; 
 		padding:0px; 
 		overflow:hidden; 
 	}
+	canvas {
+		background:#fff;
+		border:3px solid purple;
+		border-radius:40px; 	
+	}
 	.drzac-boje{
 		position:absolute;
-		top:0;
-		left:50px;
+		top:91%;
+		left:20px;
 	}
 	.boja {
 		width:50px;
@@ -71,8 +76,8 @@ var sadrzaj = platno.getContext('2d');
 var boje = document.getElementsByClassName("boja");
 var pritisnuto;
 
-platno.width = window.innerWidth;
-platno.height = window.innerHeight;
+platno.width = window.innerWidth * 0.9;
+platno.height = window.innerHeight * 0.9;
 
 // pravi paletu i funkciju za hvatanje boja
 function praviPaletu(){
@@ -82,10 +87,8 @@ function praviPaletu(){
 			platno.color = this.style.backgroundColor;
 		});
 	} // kraj for	
+	platno.color = boje[boje.length-1].style.backgroundColor;		// početna boja za crtanje
 }
-
-// podrazumeva boju za crtanje
-platno.color = boje[boje.length-1].style.backgroundColor;
 
 platno.addEventListener('mousedown', function(e) {
 	this.X = e.pageX;
@@ -117,7 +120,7 @@ function slucajnaBoja() {
 }
 
 function obrisiPlatno(){
-	sadrzaj.fillStyle = '#000';
+	sadrzaj.fillStyle = '#fff';
 	sadrzaj.fillRect(0,0, platno.width, platno.height);
 	praviPaletu();
 }
