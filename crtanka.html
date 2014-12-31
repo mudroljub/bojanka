@@ -14,8 +14,8 @@
 		user-select: none;
 	}
 	canvas {
-		width:90%;
-		height:90%;
+		width:1100;
+		height:600;
 		background:#fff;
 		border:3px solid purple;
 		border-radius:40px;
@@ -61,10 +61,15 @@
 	<div class="boja" onclick="uzmiBoju(this)"></div>
 	<div id="brisac" onclick="obrisiPlatno()"></div>
 
-	<canvas id="platno" width="800" height="600" onmousemove="lepoCrtaj(event)" onmousedown="premostiRazmak(event)"></canvas>
+	<canvas id="platno" onmousemove="lepoCrtaj(event)" onmousedown="premostiRazmak(event)"></canvas>
 
 <script>
 var platno = document.getElementById("platno");
+//platno.width = window.innerWidth * 0.9;
+//platno.height = window.innerHeight * 0.9;
+platno.width = 1100;
+platno.height = 600;
+
 var sadrzaj = platno.getContext("2d");
 var izabrana_boja;
 var pritisnuto;
