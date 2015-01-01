@@ -61,22 +61,23 @@
 </head>
 <body onload="deliSlucajneBoje()" onmouseup="pritisnuto=false;" onmousedown="pritisnuto=true;">
 
-	<div class="cetkice"><img src="kist.png" class="cetkica" id="cetkica1" onclick="uzmiDebljinu(5)"/><img src="kist.png" class="cetkica" id="cetkica2" onclick="uzmiDebljinu(10)"/><img src="kist.png" class="cetkica" id="cetkica3" onclick="uzmiDebljinu(20)" /></div>
+	<div class="paleta">
+		<div class="cetkice"><img src="kist.png" class="cetkica" id="cetkica1" onclick="uzmiDebljinu(5)"/><img src="kist.png" class="cetkica" id="cetkica2" onclick="uzmiDebljinu(10)"/><img src="kist.png" class="cetkica" id="cetkica3" onclick="uzmiDebljinu(20)" /></div>
+		<div class="boja bela" onclick="uzmiBoju(this)"></div>
+		<div class="boja" onclick="uzmiBoju(this)"></div>
+		<div class="boja" onclick="uzmiBoju(this)"></div>
+		<div class="boja" onclick="uzmiBoju(this)"></div>
+		<div class="boja" onclick="uzmiBoju(this)"></div>
+		<div class="boja" onclick="uzmiBoju(this)"></div>
+		<div class="boja" onclick="uzmiBoju(this)"></div>
+		<div class="boja" onclick="uzmiBoju(this)"></div>
+		<div class="boja" onclick="uzmiBoju(this)"></div>
+		<div class="boja" onclick="uzmiBoju(this)"></div>
+		<div class="boja" onclick="uzmiBoju(this)"></div>
+		<div class="boja" onclick="uzmiBoju(this)"></div>
+		<div id="brisac" onclick="obrisiPlatno()"></div>	
+	</div>
 	
-	<div class="boja bela" onclick="uzmiBoju(this)"></div>
-	<div class="boja" onclick="uzmiBoju(this)"></div>
-	<div class="boja" onclick="uzmiBoju(this)"></div>
-	<div class="boja" onclick="uzmiBoju(this)"></div>
-	<div class="boja" onclick="uzmiBoju(this)"></div>
-	<div class="boja" onclick="uzmiBoju(this)"></div>
-	<div class="boja" onclick="uzmiBoju(this)"></div>
-	<div class="boja" onclick="uzmiBoju(this)"></div>
-	<div class="boja" onclick="uzmiBoju(this)"></div>
-	<div class="boja" onclick="uzmiBoju(this)"></div>
-	<div class="boja" onclick="uzmiBoju(this)"></div>
-	<div class="boja" onclick="uzmiBoju(this)"></div>
-	<div id="brisac" onclick="obrisiPlatno()"></div>
-
 	<canvas id="platno" onmousemove="lepoCrtaj(event)" onmousedown="premostiRazmak(event)"></canvas>
 
 <script>
