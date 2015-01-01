@@ -21,32 +21,48 @@
 		border-radius:40px;
 		margin-top:10px;
 	}
+	.boja, .cetkice, #brisac {
+		display:inline-block;
+		vertical-align:top;
+	}
 	.boja {
 		width:50px;
 		height:50px;
 		margin:5px;
-		display:inline-block;
-		vertical-align:top;
 		border-radius:50%;
 		border:1px solid gray;
 	}
 	.bela {
 		background:white;
 	}
-	#brisac{
+	#brisac {
 		width:50px;
 		height:50px;
 		margin:5px;
-		display:inline-block;
-		vertical-align:top;
 		border:3px solid purple;
 		border-radius:15px;
 		background:white;
+	}
+	.cetkica {
+		padding:0 2px;
+	}
+	.cetkica:hover{
+		 box-shadow: 0 0 10px #9ecaed;
+	}
+	#cetkica1 {
+		width:12px;
+		height:64px;
+	}
+	#cetkica3 {
+		width:20px;
+		height:64px;
 	}
 	</style>
 </head>
 <body onload="deliSlucajneBoje()" onmouseup="pritisnuto=false;" onmousedown="pritisnuto=true;">
 
+	<div class="cetkice"><img src="kist.png" class="cetkica" id="cetkica1" onclick="uzmiDebljinu(5)"/><img src="kist.png" class="cetkica" id="cetkica2" onclick="uzmiDebljinu(10)"/><img src="kist.png" class="cetkica" id="cetkica3" onclick="uzmiDebljinu(20)" /></div>
+	
 	<div class="boja bela" onclick="uzmiBoju(this)"></div>
 	<div class="boja" onclick="uzmiBoju(this)"></div>
 	<div class="boja" onclick="uzmiBoju(this)"></div>
@@ -65,12 +81,11 @@
 
 <script>
 var platno = document.getElementById("platno");
-//platno.width = window.innerWidth * 0.9;
-//platno.height = window.innerHeight * 0.9;
-platno.width = 1100;
+platno.width = 1100;		// fiksne mere ne deformišu platno
 platno.height = 600;
 
 var sadrzaj = platno.getContext("2d");
+sadrzaj.lineWidth = 10;		// početna debljina
 var izabrana_boja;
 var pritisnuto;
 
@@ -99,7 +114,6 @@ function lepoCrtaj(e) {
 		sadrzaj.beginPath();
 		sadrzaj.moveTo(this.X - 20, this.Y - 75);				// cilja centar četkice
 		sadrzaj.lineCap = 'round';
-		sadrzaj.lineWidth = 20;
 		sadrzaj.lineTo(e.pageX - 20, e.pageY - 75);			
 		sadrzaj.strokeStyle = izabrana_boja;
 		sadrzaj.stroke();
@@ -119,6 +133,12 @@ function obrisiPlatno(){
 	sadrzaj.fillRect(0,0, platno.width, platno.height);
 	deliSlucajneBoje();
 }
+
+function uzmiDebljinu(broj) {
+	sadrzaj.lineWidth = broj;
+	console.log(broj);
+}
+
 </script>
 
 </body>

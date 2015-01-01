@@ -8,18 +8,25 @@
 		background:#eee; 
 		margin:0px; 
 		padding:0px; 
+		cursor: url(kist.png), pointer;
+		-webkit-user-select: none;  
+		-moz-user-select: none;    
+		-ms-user-select: none;      
+		user-select: none;
 	}
 	canvas {
 		background:#fff;
 		border:3px solid purple;
-		border-radius:40px; 	
+		border-radius:40px; 
+	}
+	.boja, .cetkice, #brisac {
+		display:inline-block;
+		vertical-align:top;
 	}
 	.boja {
 		width:50px;
 		height:50px;
 		margin:5px;
-		display:inline-block;
-		vertical-align:top;
 		border-radius:50%;
 		border:1px solid gray;
 		background:white;
@@ -31,20 +38,33 @@
 		width:50px;
 		height:50px;
 		margin:5px;
-		display:inline-block;
-		vertical-align:top;
 		border:3px solid purple;
 		border-radius:15px;
 		background:white;
+	}
+	.cetkica {
+		padding:0 2px;
+	}
+	.cetkica:hover{
+		 box-shadow: 0 0 10px #9ecaed;
+	}
+	#cetkica1 {
+		width:12px;
+		height:64px;
+	}
+	#cetkica3 {
+		width:20px;
+		height:64px;
 	}
 	</style>
 	
 </head>
 <body onload="praviPaletu(); rastegniPlatno()" onresize="rastegniPlatno()">
 	
-	<canvas id="platno" onmouseup="pritisnuto=false;" onmousedown="pritisnuto=true;"></canvas>
+	<canvas id="platno" onmouseup="pritisnuto=false;" onmousedown="pritisnuto=true; postaviPocetnu(event);" onmousemove="lepoCrtaj(event);" ></canvas>
 	
-	<div class="drzac-boje">
+	<div class="paleta">
+		<div class="cetkice"><img src="kist.png" class="cetkica" id="cetkica1" onclick="uzmiDebljinu(5)"/><img src="kist.png" class="cetkica" id="cetkica2" onclick="uzmiDebljinu(10)"/><img src="kist.png" class="cetkica" id="cetkica3" onclick="uzmiDebljinu(20)" /></div>
 		<div class="boja bela"></div>
 		<div class="boja"></div>
 		<div class="boja"></div>
@@ -59,11 +79,11 @@
 		<div class="boja"></div>
 		<div id="brisac" onclick="obrisiPlatno()"></div>	
 	</div>
-		
-</body>
-</html>
 
 <script>
+// dodati tri četkice raznih debljina
+// dodati bojanke	
+
 var platno = document.getElementById('platno');
 var sadrzaj = platno.getContext('2d');
 var boje = document.getElementsByClassName("boja");
@@ -72,6 +92,7 @@ var pritisnuto;
 function rastegniPlatno(){
 	platno.width = window.innerWidth * 0.9;
 	platno.height = window.innerHeight * 0.9;	
+	sadrzaj.lineWidth = 10;		// početna debljina
 }
 
 function praviPaletu(){
@@ -84,26 +105,22 @@ function praviPaletu(){
 	platno.color = boje[boje.length-1].style.backgroundColor;		// početna boja za crtanje
 }
 
-platno.addEventListener('mousedown', function(e) {
-	this.X = e.pageX;
-	this.Y = e.pageY;
-}, 0);
+function postaviPocetnu(e){
+	platno.X = e.pageX;
+	platno.Y = e.pageY;
+}
 
-platno.addEventListener('mousemove', function(e) {
-	this.style.cursor = 'pointer';
+function lepoCrtaj(e) {
 	if (pritisnuto) {
 		sadrzaj.beginPath();
-		sadrzaj.moveTo(this.X, this.Y);
+		sadrzaj.moveTo(platno.X, platno.Y);
 		sadrzaj.lineCap = 'round';
-		sadrzaj.lineWidth = 3;
 		sadrzaj.lineTo(e.pageX, e.pageY);
-		sadrzaj.strokeStyle = this.color;
+		sadrzaj.strokeStyle = platno.color;
 		sadrzaj.stroke();
-
-		this.X = e.pageX;
-		this.Y = e.pageY;
+		postaviPocetnu(e);
 	}
-}, 0);
+}
 
 function slucajnaBoja() {
 	color = 'rgb(';
@@ -118,4 +135,12 @@ function obrisiPlatno(){
 	sadrzaj.fillRect(0,0, platno.width, platno.height);
 	praviPaletu();
 }
+
+function uzmiDebljinu(broj) {
+	sadrzaj.lineWidth = broj;
+	console.log(broj);
+}
 </script>
+
+</body>
+</html>
