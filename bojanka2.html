@@ -55,11 +55,12 @@
 	}
 	.slike {
 		height:100px;
+		margin:2px;
 	}
 	</style>
 	
 </head>
-<body onload="praviPaletu(); rastegniPlatno();" onresize="rastegniPlatno()">
+<body id="telo" onload="praviPaletu(); rastegniPlatno();" onresize="rastegniPlatno()">
 	
 	<canvas id="platno" onmouseup="pritisnuto=false;" onmousedown="pritisnuto=true; postaviPocetnu(event);" onmousemove="lepoCrtaj(event);"></canvas>
 	
@@ -68,8 +69,7 @@
 			<img src="kist.png" class="cetkica" id="cetkica1" onclick="uzmiDebljinu(5)"/>
 			<img src="kist.png" class="cetkica" id="cetkica2" onclick="uzmiDebljinu(10)"/>
 			<img src="kist.png" class="cetkica" id="cetkica3" onclick="uzmiDebljinu(20)" />
-		</div>
-		
+		</div>	
 		<div class="boja"></div>
 		<div class="boja"></div>
 		<div class="boja"></div>
@@ -82,36 +82,74 @@
 		<div class="boja"></div>
 		<div class="boja"></div>
 		<div class="boja"></div>
-		
 		<div id="brisac" onclick="obrisiPlatno()"></div>
 	</div>
 	
-	<img id="strumf" src="slike/strumf-bojanka.gif" class="slike">
-	<img id="duga" src="slike/duga-bojanka.jpg" class="slike">
-	<img id="gljive" src="slike/gljive-bojanke.jpg" class="slike">
-	<img id="poni" src="slike/poni-bojanka.png" class="slike">
-	<img id="ninjago" src="slike/ninjago.png" class="slike">
-	<img id="mali-poni" src="slike/mali-poni-bojanka.jpg" class="slike">
-	<img id="betman" src="slike/betman-bojanka.jpg" class="slike">
-	<img id="krokodil" src="slike/krokodil.gif" class="slike">
-	<img id="klovn" src="slike/klovn.jpeg" class="slike">
-	<img id="avion" src="slike/avion-bojanka.jpg" class="slike">
-	<img id="pepa-i-dzordz" src="slike/pepa-i-dzordz.gif" class="slike">	
-	<img id="angry-birds" src="slike/angry-birds.jpg" class="slike">	
+	<div id="slike_drzac"></div>
 
 <script>
+// ispitati offset
 // srediti aplikaciju za tačskrin uređanje	
+// možda svg ?
 
 var platno = document.getElementById('platno');
 var sadrzaj = platno.getContext('2d');
 var boje = document.getElementsByClassName("boja");
-var slike = document.getElementsByClassName("slike");
+var slike_drzac = document.getElementById("slike_drzac");
 var pritisnuto;
 
-function rastegniPlatno(){
+var slike_bojanke = ["strumf-bojanka.gif", "duga-bojanka.jpg", "gljive-bojanke.jpg", "ninjago.png", "poni-bojanka.png", "mali-poni-bojanka.jpg", "klovn.jpeg", "avion-bojanka.jpg", "pepa-i-dzordz.gif", "angry-birds.jpg", "leonardo.jpg", "rafaelo.jpg", "kornjaca.gif", "gormit.jpg", "gormiti.gif", "ariela.jpg", "jasmina.jpg", "pokahontas.jpg", "snezana.gif"];
+
+for (var i = 0; i < slike_bojanke.length; i++) {
+	// ređa sve slike iz niza na stranicu
+	var ime_slike = slike_bojanke[i];
+    slike_bojanke[i] = new Image();
+	slike_bojanke[i].className = "slike";
+    slike_bojanke[i].src = "slike/" + ime_slike;  
+	slike_drzac.appendChild(slike_bojanke[i]);
+    
+    // klikom postavlja sliku na platno
+    slike_bojanke[i].addEventListener("click", function(){
+		
+		obrisiPlatno();
+		
+		var prirodna_sirina = this.naturalWidth;
+		var prirodna_visina = this.naturalHeight;
+				
+		// ako je uspravno
+		if(platno.height >= platno.width) {
+			var nova_sirina = platno.width - 10;
+			var nova_visina = prirodna_visina * (nova_sirina / prirodna_sirina);
+			// ako je slika viša od platna
+			if(nova_visina >= platno.height){
+				nova_visina = platno.height - 20;
+				nova_sirina = prirodna_sirina * (nova_visina / prirodna_visina);
+			}
+		}
+		// ako je položeno
+		else {
+			var nova_visina = platno.height - 20;
+			var nova_sirina = prirodna_sirina * (nova_visina / prirodna_visina);			
+			// ako je slika šira od platna
+			if(nova_sirina >= platno.width) {	
+				nova_sirina = platno.width - 40;
+				nova_visina = prirodna_visina * (nova_sirina / prirodna_sirina);
+			}
+		}
+
+		// automatski centrira sliku
+		var polazno_x = (platno.width - nova_sirina) / 2;
+		var polazno_y = (platno.height - nova_visina) / 2;
+		sadrzaj.drawImage(this, polazno_x, polazno_y, nova_sirina, nova_visina);
+		
+	});
+} // kraj for
+
+
+function rastegniPlatno(){		// neminovno ga obriše
 	platno.width = window.innerWidth * 0.9;
 	platno.height = window.innerHeight * 0.9;	
-	sadrzaj.lineWidth = 10;		// početna debljina
+	sadrzaj.lineWidth = 10;		// početna debljina četkice
 }
 
 function praviPaletu(){
@@ -161,17 +199,12 @@ function uzmiDebljinu(broj) {
 	sadrzaj.lineWidth = broj;
 }
 
-// ako klikne na sliku postavlja je na platno
-for(var i = 0; i < slike.length; i++) {
-	slike[i].addEventListener("click", function(){
-		obrisiPlatno();
-		
-		// prilagoditi visinu i širinu slike platnu i ekranu
-		console.log(this.naturalHeight);
-		console.log(this.naturalWidth);
-		sadrzaj.drawImage(this,100,10);			
-	});
-} // kraj for
+
+/************ ANDROID *************/
+
+platno.addEventListener("touchmove", function(){
+	lepoCrtaj(event);	
+});
 
 </script>
 
