@@ -133,26 +133,14 @@ function postaviPocetnu(e){
 function lepoCrtaj(e) {
 
 	if (pritisnuto) {
-
-		var trenutni_rgb = kojaBoja(e);
-				
-		if(trenutni_rgb[0] <= 50 && trenutni_rgb[1] <= 50 && trenutni_rgb[2] <= 50){
-			console.log("stani!");
-			pritisnuto = false;
-	
-		} else {
-			sadrzaj.beginPath();
-			sadrzaj.moveTo(platno.X, platno.Y);
-			sadrzaj.lineCap = 'round';
-			sadrzaj.lineTo(e.pageX, e.pageY);
-			sadrzaj.closePath();					// opciono
-			sadrzaj.strokeStyle = platno.color;
-			sadrzaj.stroke();
-			postaviPocetnu(e);
-			
-		}
-		
-
+		sadrzaj.beginPath();
+		sadrzaj.moveTo(platno.X, platno.Y);
+		sadrzaj.lineCap = 'round';
+		sadrzaj.lineTo(e.pageX, e.pageY);
+		sadrzaj.closePath();					// opciono
+		sadrzaj.strokeStyle = platno.color;
+		sadrzaj.stroke();
+		postaviPocetnu(e);		
 	}
 }
 
@@ -161,7 +149,7 @@ function slucajnaBoja() {
 	for (var i = 0; i < 3; i++) {
 		color += Math.floor(Math.random() * 255) + ',';
 	}
-	return color += '.5)';
+	return color += '1)';
 }
 
 function obrisiPlatno(){
@@ -178,15 +166,6 @@ function uzmiDebljinu(broj) {
 function izaberiSliku(ova_slika){
 	obrisiPlatno();
 	sadrzaj.drawImage(ova_slika,100,10);
-}
-
-function kojaBoja(e){
-	var imgData = sadrzaj.getImageData(e.pageX, e.pageY, 1, 1);
-	red = imgData.data[0];
-	green = imgData.data[1];
-	blue = imgData.data[2];
-	trenutni_rgb = [red, green, blue];
-	return trenutni_rgb;
 }
 
 </script>
