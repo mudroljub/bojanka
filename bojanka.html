@@ -57,6 +57,9 @@
 		width:20px;
 		height:64px;
 	}
+	.slike {
+		height:100px;
+	}
 	</style>
 </head>
 <body onload="deliSlucajneBoje()" onmouseup="pritisnuto=false;" onmousedown="pritisnuto=true;">
@@ -78,24 +81,41 @@
 		<div id="brisac" onclick="obrisiPlatno()"></div>	
 	</div>
 	
-	<canvas id="platno" onmousemove="lepoCrtaj(event)" onmousedown="premostiRazmak(event)"></canvas>
+	<canvas id="platno" onmousemove="lepoCrtaj(event)" onmousedown="premostiRazmak(event)" onclick="vratiBoju(event)"></canvas>
+
+	<img id="strumf" src="slike/strumf-bojanka.gif" class="slike" onclick="izaberiSliku(this)">
+	<img id="duga" src="slike/duga-bojanka.jpg" class="slike" onclick="izaberiSliku(this)">
+	<img id="gljive" src="slike/gljive-bojanke.jpg" class="slike" onclick="izaberiSliku(this)">
+	<img id="poni" src="slike/poni-bojanka.png" class="slike" onclick="izaberiSliku(this)">
+	<img id="ninjago" src="slike/ninjago.png" class="slike" onclick="izaberiSliku(this)">
+	<img id="mali-poni" src="slike/mali-poni-bojanka.jpg" class="slike" onclick="izaberiSliku(this)">
+	<img id="betman" src="slike/betman-bojanka.jpg" class="slike" onclick="izaberiSliku(this)">
+	<img id="krokodil" src="slike/krokodil.gif" class="slike" onclick="izaberiSliku(this)">
+	<img id="klovn" src="slike/klovn.jpeg" class="slike" onclick="izaberiSliku(this)">
+	<img id="avion" src="slike/avion-bojanka.jpg" class="slike" onclick="izaberiSliku(this)">
+	<img id="pepa-i-dzordz" src="slike/pepa-i-dzordz.gif" class="slike" onclick="izaberiSliku(this)">	
+	<img id="angry-birds" src="slike/angry-birds.jpg" class="slike" onclick="izaberiSliku(this)">	
 
 <script>
+	
+// bela ne radi!	
+
 var platno = document.getElementById("platno");
 platno.width = 1100;		// fiksne mere ne deformišu platno
 platno.height = 600;
 
 var sadrzaj = platno.getContext("2d");
 sadrzaj.lineWidth = 10;		// početna debljina
+
 var izabrana_boja;
 var pritisnuto;
 
 function slucajnaBoja() {
-	color = 'rgb(';
+	color = 'rgba(';
 	for (var i = 0; i < 3; i++) {
 		color += Math.floor(Math.random() * 255) + ',';
 	}
-	return color.replace(/\,$/, ')');
+	return color += '1)';
 }
 
 function deliSlucajneBoje() {
@@ -115,7 +135,8 @@ function lepoCrtaj(e) {
 		sadrzaj.beginPath();
 		sadrzaj.moveTo(this.X - 20, this.Y - 75);				// cilja centar četkice
 		sadrzaj.lineCap = 'round';
-		sadrzaj.lineTo(e.pageX - 20, e.pageY - 75);			
+		sadrzaj.lineTo(e.pageX - 20, e.pageY - 75);		
+		sadrzaj.closePath();	// ostavlja lepši trag
 		sadrzaj.strokeStyle = izabrana_boja;
 		sadrzaj.stroke();
 		// pomera početnu poziciju do pozicije miša
@@ -138,6 +159,20 @@ function obrisiPlatno(){
 function uzmiDebljinu(broj) {
 	sadrzaj.lineWidth = broj;
 	console.log(broj);
+}
+
+function izaberiSliku(ova_slika){
+	obrisiPlatno();
+	sadrzaj.drawImage(ova_slika,100,10);
+}
+
+function vratiBoju(e){
+	var imgData = sadrzaj.getImageData(e.pageX, e.pageY, 1, 1);
+	red = imgData.data[0];
+	green = imgData.data[1];
+	blue = imgData.data[2];
+	alpha = imgData.data[3];
+	console.log(red + " " + green + " " + blue + " " + alpha);	
 }
 
 </script>
