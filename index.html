@@ -88,7 +88,6 @@
 	<div id="slike_drzac"></div>
 
 <script>
-// ispitati offset
 // srediti aplikaciju za tačskrin uređanje	
 // možda svg ?
 
@@ -98,18 +97,18 @@ var boje = document.getElementsByClassName("boja");
 var slike_drzac = document.getElementById("slike_drzac");
 var pritisnuto;
 
-var slike_bojanke = ["strumf-bojanka.gif", "duga-bojanka.jpg", "gljive-bojanke.jpg", "ninjago.png", "poni-bojanka.png", "mali-poni-bojanka.jpg", "klovn.jpeg", "avion-bojanka.jpg", "pepa-i-dzordz.gif", "angry-birds.jpg", "leonardo.jpg", "rafaelo.jpg", "kornjaca.gif", "gormit.jpg", "gormiti.gif", "ariela.jpg", "jasmina.jpg", "pokahontas.jpg", "snezana.gif"];
+var slike = ["strumf-bojanka.gif", "duga-bojanka.jpg", "gljive-bojanke.jpg", "ninjago.png", "poni-bojanka.png", "mali-poni-bojanka.jpg", "klovn.jpeg", "avion-bojanka.jpg", "pepa-i-dzordz.gif", "angry-birds.jpg", "leonardo.jpg", "rafaelo.jpg", "kornjaca.gif", "gormit.jpg", "gormiti.gif", "ariela.jpg", "jasmina.jpg", "pokahontas.jpg", "snezana.gif"];
 
-for (var i = 0; i < slike_bojanke.length; i++) {
-	// ređa sve slike iz niza na stranicu
-	var ime_slike = slike_bojanke[i];
-    slike_bojanke[i] = new Image();
-	slike_bojanke[i].className = "slike";
-    slike_bojanke[i].src = "slike/" + ime_slike;  
-	slike_drzac.appendChild(slike_bojanke[i]);
+for (var i = 0; i < slike.length; i++) {
+	// postavlja slike iz niza na stranicu
+	var ime_slike = slike[i];
+    slike[i] = new Image();
+	slike[i].className = "slike";
+    slike[i].src = "slike/" + ime_slike;  
+	slike_drzac.appendChild(slike[i]);
     
     // klikom postavlja sliku na platno
-    slike_bojanke[i].addEventListener("click", function(){
+    slike[i].addEventListener("click", function(){
 		
 		obrisiPlatno();
 		
