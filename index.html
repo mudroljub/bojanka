@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Bojanka2</title>
+	<title>Bojanka</title>
 	<meta charset="utf-8">
 	<style>
 	body { 
@@ -60,7 +60,7 @@
 	</style>
 	
 </head>
-<body id="telo" onload="praviPaletu(); rastegniPlatno();" onresize="rastegniPlatno()">
+<body id="telo" onload="praviPaletu(); rastegniPlatno(); postaviSlike();" onresize="rastegniPlatno()">
 	
 	<canvas id="platno" onmouseup="pritisnuto=false;" onmousedown="pritisnuto=true; postaviPocetnu(event);" onmousemove="lepoCrtaj(event);"></canvas>
 	
@@ -99,50 +99,52 @@ var pritisnuto;
 
 var slike = ["strumf-bojanka.gif", "duga-bojanka.jpg", "gljive-bojanke.jpg", "ninjago.png", "poni-bojanka.png", "mali-poni-bojanka.jpg", "klovn.jpeg", "avion-bojanka.jpg", "pepa-i-dzordz.gif", "angry-birds.jpg", "leonardo.jpg", "rafaelo.jpg", "kornjaca.gif", "gormit.jpg", "gormiti.gif", "ariela.jpg", "jasmina.jpg", "pokahontas.jpg", "snezana.gif"];
 
-for (var i = 0; i < slike.length; i++) {
-	// postavlja slike iz niza na stranicu
-	var ime_slike = slike[i];
-    slike[i] = new Image();
-	slike[i].className = "slike";
-    slike[i].src = "slike/" + ime_slike;  
-	slike_drzac.appendChild(slike[i]);
-    
-    // klikom postavlja sliku na platno
-    slike[i].addEventListener("click", function(){
+function postaviSlike(){
+	for (var i = 0; i < slike.length; i++) {
+		// postavlja slike iz niza na stranicu
+		var ime_slike = slike[i];
+		slike[i] = new Image();
+		slike[i].className = "slike";
+		slike[i].src = "slike/" + ime_slike;  
+		slike_drzac.appendChild(slike[i]);
 		
-		obrisiPlatno();
-		
-		var prirodna_sirina = this.naturalWidth;
-		var prirodna_visina = this.naturalHeight;
-				
-		// ako je uspravno
-		if(platno.height >= platno.width) {
-			var nova_sirina = platno.width - 10;
-			var nova_visina = prirodna_visina * (nova_sirina / prirodna_sirina);
-			// ako je slika viša od platna
-			if(nova_visina >= platno.height){
-				nova_visina = platno.height - 20;
-				nova_sirina = prirodna_sirina * (nova_visina / prirodna_visina);
+		// klikom postavlja sliku na platno
+		slike[i].addEventListener("click", function(){
+			
+			obrisiPlatno();
+			
+			var prirodna_sirina = this.naturalWidth;
+			var prirodna_visina = this.naturalHeight;
+					
+			// ako je uspravno
+			if(platno.height >= platno.width) {
+				var nova_sirina = platno.width - 10;
+				var nova_visina = prirodna_visina * (nova_sirina / prirodna_sirina);
+				// ako je slika viša od platna
+				if(nova_visina >= platno.height){
+					nova_visina = platno.height - 20;
+					nova_sirina = prirodna_sirina * (nova_visina / prirodna_visina);
+				}
 			}
-		}
-		// ako je položeno
-		else {
-			var nova_visina = platno.height - 20;
-			var nova_sirina = prirodna_sirina * (nova_visina / prirodna_visina);			
-			// ako je slika šira od platna
-			if(nova_sirina >= platno.width) {	
-				nova_sirina = platno.width - 40;
-				nova_visina = prirodna_visina * (nova_sirina / prirodna_sirina);
+			// ako je položeno
+			else {
+				var nova_visina = platno.height - 20;
+				var nova_sirina = prirodna_sirina * (nova_visina / prirodna_visina);			
+				// ako je slika šira od platna
+				if(nova_sirina >= platno.width) {	
+					nova_sirina = platno.width - 40;
+					nova_visina = prirodna_visina * (nova_sirina / prirodna_sirina);
+				}
 			}
-		}
 
-		// automatski centrira sliku
-		var polazno_x = (platno.width - nova_sirina) / 2;
-		var polazno_y = (platno.height - nova_visina) / 2;
-		sadrzaj.drawImage(this, polazno_x, polazno_y, nova_sirina, nova_visina);
-		
-	});
-} // kraj for
+			// automatski centrira sliku
+			var polazno_x = (platno.width - nova_sirina) / 2;
+			var polazno_y = (platno.height - nova_visina) / 2;
+			sadrzaj.drawImage(this, polazno_x, polazno_y, nova_sirina, nova_visina);
+			
+		});
+	} // kraj for	
+}
 
 
 function rastegniPlatno(){		// neminovno ga obriše
