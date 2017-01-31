@@ -1,6 +1,6 @@
-bojanka
+Bojanka
 =======
 
-Simple JavaScript application for drawing in HTML5 canvas
+Jednostavna Javaskript aplikacija za crtanje u Browseru
 
-Jednostavna Javaskript aplikacija za crtanje u HTML5 kanvasu
+Isprobaj je ovde: http://mudroljub.github.io/bojanka/
