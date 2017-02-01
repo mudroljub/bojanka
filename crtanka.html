@@ -1,25 +1,23 @@
-<!doctype html>
+<!DOCTYPE html>
 <html>
 <head>
-	<title>Crtanka</title>
+	<title>Crtanka2</title>
 	<meta charset="utf-8">
 	<style>
-	body {
-		background:#eee;
-		padding:0 20px 20px 20px;
-		cursor: url(kist.png), cell;
+	body { 
+		background:#eee; 
+		margin:0px; 
+		padding:0px; 
+		cursor: url(kist.png), pointer;
 		-webkit-user-select: none;  
 		-moz-user-select: none;    
 		-ms-user-select: none;      
 		user-select: none;
 	}
 	canvas {
-		width:1100;
-		height:600;
 		background:#fff;
 		border:3px solid purple;
-		border-radius:40px;
-		margin-top:10px;
+		border-radius:40px; 
 	}
 	.boja, .cetkice, #brisac {
 		display:inline-block;
@@ -31,11 +29,12 @@
 		margin:5px;
 		border-radius:50%;
 		border:1px solid gray;
+		background:white;
 	}
 	.bela {
 		background:white;
 	}
-	#brisac {
+	#brisac{
 		width:50px;
 		height:50px;
 		margin:5px;
@@ -58,37 +57,70 @@
 		height:64px;
 	}
 	</style>
+	
 </head>
-<body onload="deliSlucajneBoje()" onmouseup="pritisnuto=false;" onmousedown="pritisnuto=true;">
-
+<body onload="praviPaletu(); rastegniPlatno()" onresize="rastegniPlatno()">
+	
+	<canvas id="platno" onmouseup="pritisnuto=false;" onmousedown="pritisnuto=true; postaviPocetnu(event);" onmousemove="lepoCrtaj(event);" ></canvas>
+	
 	<div class="paleta">
 		<div class="cetkice"><img src="kist.png" class="cetkica" id="cetkica1" onclick="uzmiDebljinu(5)"/><img src="kist.png" class="cetkica" id="cetkica2" onclick="uzmiDebljinu(10)"/><img src="kist.png" class="cetkica" id="cetkica3" onclick="uzmiDebljinu(20)" /></div>
-		<div class="boja bela" onclick="uzmiBoju(this)"></div>
-		<div class="boja" onclick="uzmiBoju(this)"></div>
-		<div class="boja" onclick="uzmiBoju(this)"></div>
-		<div class="boja" onclick="uzmiBoju(this)"></div>
-		<div class="boja" onclick="uzmiBoju(this)"></div>
-		<div class="boja" onclick="uzmiBoju(this)"></div>
-		<div class="boja" onclick="uzmiBoju(this)"></div>
-		<div class="boja" onclick="uzmiBoju(this)"></div>
-		<div class="boja" onclick="uzmiBoju(this)"></div>
-		<div class="boja" onclick="uzmiBoju(this)"></div>
-		<div class="boja" onclick="uzmiBoju(this)"></div>
-		<div class="boja" onclick="uzmiBoju(this)"></div>
+		<div class="boja bela"></div>
+		<div class="boja"></div>
+		<div class="boja"></div>
+		<div class="boja"></div>
+		<div class="boja"></div>
+		<div class="boja"></div>
+		<div class="boja"></div>
+		<div class="boja"></div>
+		<div class="boja"></div>
+		<div class="boja"></div>
+		<div class="boja"></div>
+		<div class="boja"></div>
 		<div id="brisac" onclick="obrisiPlatno()"></div>	
 	</div>
-	
-	<canvas id="platno" onmousemove="lepoCrtaj(event)" onmousedown="premostiRazmak(event)"></canvas>
 
 <script>
-var platno = document.getElementById("platno");
-platno.width = 1100;		// fiksne mere ne deformišu platno
-platno.height = 600;
+// dodati tri četkice raznih debljina
+// dodati bojanke	
 
-var sadrzaj = platno.getContext("2d");
-sadrzaj.lineWidth = 10;		// početna debljina
-var izabrana_boja;
+var platno = document.getElementById('platno');
+var sadrzaj = platno.getContext('2d');
+var boje = document.getElementsByClassName("boja");
 var pritisnuto;
+
+function rastegniPlatno(){
+	platno.width = window.innerWidth * 0.9;
+	platno.height = window.innerHeight * 0.9;	
+	sadrzaj.lineWidth = 10;		// početna debljina
+}
+
+function praviPaletu(){
+	for(var i = 1; i < boje.length; i++) {
+		boje[i].style.backgroundColor = slucajnaBoja();
+		boje[i].addEventListener("click", function(){
+			platno.color = this.style.backgroundColor;
+		});
+	} // kraj for	
+	platno.color = boje[boje.length-1].style.backgroundColor;		// početna boja za crtanje
+}
+
+function postaviPocetnu(e){
+	platno.X = e.pageX;
+	platno.Y = e.pageY;
+}
+
+function lepoCrtaj(e) {
+	if (pritisnuto) {
+		sadrzaj.beginPath();
+		sadrzaj.moveTo(platno.X, platno.Y);
+		sadrzaj.lineCap = 'round';
+		sadrzaj.lineTo(e.pageX, e.pageY);
+		sadrzaj.strokeStyle = platno.color;
+		sadrzaj.stroke();
+		postaviPocetnu(e);
+	}
+}
 
 function slucajnaBoja() {
 	color = 'rgb(';
@@ -98,48 +130,16 @@ function slucajnaBoja() {
 	return color.replace(/\,$/, ')');
 }
 
-function deliSlucajneBoje() {
-	var boje = document.getElementsByClassName("boja");
-	for (var i=1; i < boje.length; i++) {
-		boje[i].style.backgroundColor = slucajnaBoja();
-	}
-	izabrana_boja = boje[boje.length-1].style.backgroundColor;	// pamti poslednju za miš
-}
-
-function uzmiBoju(ovaj_element){
-	izabrana_boja = ovaj_element.style.backgroundColor;
-}
-
-function lepoCrtaj(e) {
-	if (pritisnuto) {
-		sadrzaj.beginPath();
-		sadrzaj.moveTo(this.X - 20, this.Y - 75);				// cilja centar četkice
-		sadrzaj.lineCap = 'round';
-		sadrzaj.lineTo(e.pageX - 20, e.pageY - 75);			
-		sadrzaj.strokeStyle = izabrana_boja;
-		sadrzaj.stroke();
-		// pomera početnu poziciju do pozicije miša
-		this.X = e.pageX;
-		this.Y = e.pageY;
-	}
-}
-
-function premostiRazmak(e){
-	this.X = e.pageX;
-	this.Y = e.pageY;
-}
-
 function obrisiPlatno(){
 	sadrzaj.fillStyle = '#fff';
 	sadrzaj.fillRect(0,0, platno.width, platno.height);
-	deliSlucajneBoje();
+	praviPaletu();
 }
 
 function uzmiDebljinu(broj) {
 	sadrzaj.lineWidth = broj;
 	console.log(broj);
 }
-
 </script>
 
 </body>

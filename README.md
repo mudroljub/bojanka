@@ -1,6 +1,12 @@
-Bojanka
-=======
+![](screen.png)
 
-Jednostavna Javaskript aplikacija za crtanje u Browseru
+# Bojanka
 
-Isprobaj je ovde: http://mudroljub.github.io/bojanka/
+Crtanka i bojanka za najmlađe.
+
+Isprobaj je ovde: [mudroljub.github.io/bojanka](http://mudroljub.github.io/bojanka/)
+
+Ima i svoju [čarobnu verziju](http://mudroljub.github.io/bojanka/carobna.html)
+
+## TODO
+* fale slike za bojanku, naći ih
