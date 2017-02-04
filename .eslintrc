@@ -11,7 +11,6 @@
       "no-dupe-args": "error",
       "no-dupe-keys": "error",
       "no-unreachable": "error",
-      "curly": ["error", "multi"],
       "block-scoped-var": "error",
       "class-methods-use-this": "error",
       "no-param-reassign": "error",
