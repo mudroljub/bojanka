@@ -2,21 +2,21 @@
 <html>
 
 <head>
-	<title>Bojanka</title>
+	<title>Crtanka</title>
 	<meta charset="utf-8">
 	<link rel="stylesheet" href="css/style.css">
 </head>
 
-<body id="telo" onload="praviPaletu(); rastegniPlatno(); postaviSlike();" onresize="rastegniPlatno()">
+<body id="telo">
 
 	<center>
-		<canvas id="platno" onmouseup="pritisnuto=false;" onmousedown="pritisnuto=true; postaviPocetnu(event);" onmousemove="lepoCrtaj(event);"></canvas>
+		<canvas id="platno"></canvas>
 
 		<div class="paleta">
 			<div class="cetkice">
-				<img src="slike/kist.png" class="cetkica" id="cetkica1" onclick="uzmiDebljinu(5)" />
-				<img src="slike/kist.png" class="cetkica" id="cetkica2" onclick="uzmiDebljinu(10)" />
-				<img src="slike/kist.png" class="cetkica" id="cetkica3" onclick="uzmiDebljinu(20)" />
+				<img src="slike/kist.png" class="cetkica" id="cetkica1" />
+				<img src="slike/kist.png" class="cetkica" id="cetkica2" />
+				<img src="slike/kist.png" class="cetkica" id="cetkica3" />
 			</div>
 			<div class="boja"></div>
 			<div class="boja"></div>
@@ -30,13 +30,11 @@
 			<div class="boja"></div>
 			<div class="boja"></div>
 			<div class="boja"></div>
-			<div id="brisac" onclick="obrisiPlatno()"></div>
+			<div id="brisac"></div>
 		</div>
-
-		<div id="slike_drzac"></div>
 	</center>
 
-	<script src="js/bojanka.js"></script>
+	<script src="js/main.js"></script>
 
 </body>
 
