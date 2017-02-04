@@ -9,4 +9,6 @@ Isprobaj je ovde: [mudroljub.github.io/bojanka](http://mudroljub.github.io/bojan
 Ima i svoju [čarobnu verziju](http://mudroljub.github.io/bojanka/carobna.html).
 
 ## TODO
-* fale slike za bojenje, naći ih
+- fale slike za bojenje, naći ih
+- srediti aplikaciju za tačskrin uređanje
+- možda svg ?

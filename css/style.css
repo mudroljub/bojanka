@@ -1,0 +1,59 @@
+body {
+  background: #eee;
+  margin: 0px;
+  padding: 0px;
+  cursor: url("../slike/kist.png"), pointer;
+  user-select: none;
+}
+
+canvas {
+  background: #fff;
+  border: 3px solid purple;
+  border-radius: 40px;
+}
+
+.boja, .cetkice, #brisac {
+  display: inline-block;
+  vertical-align: top;
+}
+
+.boja {
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  border-radius: 50%;
+  border: 1px solid gray;
+  background: white;
+}
+
+#brisac {
+  width: 50px;
+  height: 50px;
+  margin: 5px;
+  border: 3px solid purple;
+  border-radius: 15px;
+  background: white;
+}
+
+.cetkica {
+  padding: 0 2px;
+}
+
+.cetkica:hover {
+  box-shadow: 0 0 10px #9ecaed;
+}
+
+#cetkica1 {
+  width: 12px;
+  height: 64px;
+}
+
+#cetkica3 {
+  width: 20px;
+  height: 64px;
+}
+
+.slike {
+  height: 100px;
+  margin: 2px;
+}

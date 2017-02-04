@@ -1,213 +1,43 @@
 <!DOCTYPE html>
 <html>
+
 <head>
 	<title>Bojanka</title>
 	<meta charset="utf-8">
-	<style>
-	body { 
-		background:#eee; 
-		margin:0px; 
-		padding:0px; 
-		cursor: url(kist.png), pointer;
-		-webkit-user-select: none;  
-		-moz-user-select: none;    
-		-ms-user-select: none;      
-		user-select: none;
-	}
-	canvas {
-		background:#fff;
-		border:3px solid purple;
-		border-radius:40px; 
-	}
-	.boja, .cetkice, #brisac {
-		display:inline-block;
-		vertical-align:top;
-	}
-	.boja {
-		width:50px;
-		height:50px;
-		margin:5px;
-		border-radius:50%;
-		border:1px solid gray;
-		background:white;
-	}
-	#brisac{
-		width:50px;
-		height:50px;
-		margin:5px;
-		border:3px solid purple;
-		border-radius:15px;
-		background:white;
-	}
-	.cetkica {
-		padding:0 2px;
-	}
-	.cetkica:hover{
-		 box-shadow: 0 0 10px #9ecaed;
-	}
-	#cetkica1 {
-		width:12px;
-		height:64px;
-	}
-	#cetkica3 {
-		width:20px;
-		height:64px;
-	}
-	.slike {
-		height:100px;
-		margin:2px;
-	}
-	</style>
-	
+	<link rel="stylesheet" href="css/style.css">
 </head>
+
 <body id="telo" onload="praviPaletu(); rastegniPlatno(); postaviSlike();" onresize="rastegniPlatno()">
-	
-	<canvas id="platno" onmouseup="pritisnuto=false;" onmousedown="pritisnuto=true; postaviPocetnu(event);" onmousemove="lepoCrtaj(event);"></canvas>
-	
-	<div class="paleta">
-		<div class="cetkice">
-			<img src="kist.png" class="cetkica" id="cetkica1" onclick="uzmiDebljinu(5)"/>
-			<img src="kist.png" class="cetkica" id="cetkica2" onclick="uzmiDebljinu(10)"/>
-			<img src="kist.png" class="cetkica" id="cetkica3" onclick="uzmiDebljinu(20)" />
-		</div>	
-		<div class="boja"></div>
-		<div class="boja"></div>
-		<div class="boja"></div>
-		<div class="boja"></div>
-		<div class="boja"></div>
-		<div class="boja"></div>
-		<div class="boja"></div>
-		<div class="boja"></div>
-		<div class="boja"></div>
-		<div class="boja"></div>
-		<div class="boja"></div>
-		<div class="boja"></div>
-		<div id="brisac" onclick="obrisiPlatno()"></div>
-	</div>
-	
-	<div id="slike_drzac"></div>
 
-<script>
-// srediti aplikaciju za tačskrin uređanje	
-// možda svg ?
+	<center>
+		<canvas id="platno" onmouseup="pritisnuto=false;" onmousedown="pritisnuto=true; postaviPocetnu(event);" onmousemove="lepoCrtaj(event);"></canvas>
 
-var platno = document.getElementById('platno');
-var sadrzaj = platno.getContext('2d');
-var boje = document.getElementsByClassName("boja");
-var slike_drzac = document.getElementById("slike_drzac");
-var pritisnuto;
+		<div class="paleta">
+			<div class="cetkice">
+				<img src="slike/kist.png" class="cetkica" id="cetkica1" onclick="uzmiDebljinu(5)" />
+				<img src="slike/kist.png" class="cetkica" id="cetkica2" onclick="uzmiDebljinu(10)" />
+				<img src="slike/kist.png" class="cetkica" id="cetkica3" onclick="uzmiDebljinu(20)" />
+			</div>
+			<div class="boja"></div>
+			<div class="boja"></div>
+			<div class="boja"></div>
+			<div class="boja"></div>
+			<div class="boja"></div>
+			<div class="boja"></div>
+			<div class="boja"></div>
+			<div class="boja"></div>
+			<div class="boja"></div>
+			<div class="boja"></div>
+			<div class="boja"></div>
+			<div class="boja"></div>
+			<div id="brisac" onclick="obrisiPlatno()"></div>
+		</div>
 
-var slike = ["strumf-bojanka.gif", "duga-bojanka.jpg", "gljive-bojanke.jpg", "ninjago.png", "poni-bojanka.png", "mali-poni-bojanka.jpg", "klovn.jpeg", "avion-bojanka.jpg", "pepa-i-dzordz.gif", "angry-birds.jpg", "leonardo.jpg", "rafaelo.jpg", "kornjaca.gif", "gormit.jpg", "gormiti.gif", "ariela.jpg", "jasmina.jpg", "pokahontas.jpg", "snezana.gif"];
+		<div id="slike_drzac"></div>
+	</center>
 
-function postaviSlike(){
-	for (var i = 0; i < slike.length; i++) {
-		// postavlja slike iz niza na stranicu
-		var ime_slike = slike[i];
-		slike[i] = new Image();
-		slike[i].className = "slike";
-		slike[i].src = "slike/" + ime_slike;  
-		slike_drzac.appendChild(slike[i]);
-		
-		// klikom postavlja sliku na platno
-		slike[i].addEventListener("click", function(){
-			
-			obrisiPlatno();
-			
-			var prirodna_sirina = this.naturalWidth;
-			var prirodna_visina = this.naturalHeight;
-					
-			// ako je uspravno
-			if(platno.height >= platno.width) {
-				var nova_sirina = platno.width - 10;
-				var nova_visina = prirodna_visina * (nova_sirina / prirodna_sirina);
-				// ako je slika viša od platna
-				if(nova_visina >= platno.height){
-					nova_visina = platno.height - 20;
-					nova_sirina = prirodna_sirina * (nova_visina / prirodna_visina);
-				}
-			}
-			// ako je položeno
-			else {
-				var nova_visina = platno.height - 20;
-				var nova_sirina = prirodna_sirina * (nova_visina / prirodna_visina);			
-				// ako je slika šira od platna
-				if(nova_sirina >= platno.width) {	
-					nova_sirina = platno.width - 40;
-					nova_visina = prirodna_visina * (nova_sirina / prirodna_sirina);
-				}
-			}
-
-			// automatski centrira sliku
-			var polazno_x = (platno.width - nova_sirina) / 2;
-			var polazno_y = (platno.height - nova_visina) / 2;
-			sadrzaj.drawImage(this, polazno_x, polazno_y, nova_sirina, nova_visina);
-			
-		});
-	} // kraj for	
-}
-
-
-function rastegniPlatno(){		// neminovno ga obriše
-	platno.width = window.innerWidth * 0.9;
-	platno.height = window.innerHeight * 0.9;	
-	sadrzaj.lineWidth = 10;		// početna debljina četkice
-}
-
-function praviPaletu(){
-	for(var i = 0; i < boje.length; i++) {
-		boje[i].style.backgroundColor = slucajnaBoja();
-		boje[i].addEventListener("click", function(){
-			platno.color = this.style.backgroundColor;
-		});
-	} // kraj for
-	boje[0].style.backgroundColor = "#fff";							// prva je uvek bela	
-	platno.color = boje[boje.length-1].style.backgroundColor;		// poslednja boja je za crtanje
-}
-
-function postaviPocetnu(e){
-	platno.X = e.pageX;
-	platno.Y = e.pageY;
-}
-
-function lepoCrtaj(e) {
-	if (pritisnuto) {
-		sadrzaj.beginPath();
-		sadrzaj.moveTo(platno.X, platno.Y);
-		sadrzaj.lineCap = 'round';
-		sadrzaj.lineTo(e.pageX, e.pageY);
-		sadrzaj.closePath();					// opciono
-		sadrzaj.strokeStyle = platno.color;
-		sadrzaj.stroke();
-		postaviPocetnu(e);		
-	}
-}
-
-function slucajnaBoja() {
-	color = 'rgba(';
-	for (var i = 0; i < 3; i++) {
-		color += Math.floor(Math.random() * 255) + ',';
-	}
-	return color += '1)';
-}
-
-function obrisiPlatno(){
-	sadrzaj.fillStyle = '#fff';
-	sadrzaj.fillRect(0,0, platno.width, platno.height);
-	praviPaletu();
-}
-
-function uzmiDebljinu(broj) {
-	sadrzaj.lineWidth = broj;
-}
-
-
-/************ ANDROID *************/
-
-platno.addEventListener("touchmove", function(){
-	lepoCrtaj(event);	
-});
-
-</script>
+	<script src="js/bojanka.js"></script>
 
 </body>
+
 </html>
