@@ -7,5 +7,4 @@ Bojanka za najmlađe. Isprobaj je ovde: [mudroljub.github.io/bojanka](http://mud
 Ima i svoju [čarobnu verziju](http://mudroljub.github.io/js-paint/carobna.html).
 
 ## TODO
-- srediti aplikaciju za tačskrin uređanje
-- možda svg bojanku?
+- srediti za tačskrin uređanje
