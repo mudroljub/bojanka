@@ -1,0 +1,19 @@
+{
+  "name": "bojanka",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "start": "electron app.js",
+    "build": "electron-packager . bojanka",
+    "package": "asar pack bojanka-linux-ia32/resources/app bojanka-linux-ia32/resources/app.asar"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "asar": "^0.13.0",
+    "electron": "^1.4.15",
+    "electron-packager": "^8.5.1"
+  }
+}
