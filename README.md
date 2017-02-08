@@ -8,4 +8,4 @@ Ima i svoju:
 **[čarobnu verziju](http://mudroljub.github.io/bojanka/carobna.html)**
 
 ## TODO
-- srediti za tačskrin uređanje
+- srediti za tačskrin
