@@ -37,20 +37,24 @@ canvas {
 
 .cetkica {
   padding: 0 2px;
+  height: 64px;
 }
 
-.cetkica:hover {
+.cetkica:hover,
+.boja:hover {
   box-shadow: 0 0 10px #9ecaed;
+}
+
+#stapic {
+  margin-left: 12px;
 }
 
 #cetkica1 {
   width: 12px;
-  height: 64px;
 }
 
 #cetkica3 {
   width: 20px;
-  height: 64px;
 }
 
 .slike {
