@@ -2,9 +2,9 @@
 
 # Bojanka (*JS Paint*)
 
-Bojanka za najmlađe. Isprobaj je ovde: [mudroljub.github.io/bojanka](http://mudroljub.github.io/bojanka/). 
+Bojanka za najmlađe. Ima i čarobne mogućnosti.
 
-Ima i svoju **čarobnu verziju**.
+Isprobaj je ovde: [mudroljub.github.io/bojanka](http://mudroljub.github.io/bojanka/). 
 
 ## TODO
 - srediti za tačskrin
