@@ -1,12 +1,16 @@
 const platno = document.getElementById('platno')
 const sadrzaj = platno.getContext('2d')
 const boje = document.getElementsByClassName('boja')
+
 const mish = {
   x: 0,
   y: 0
 }
 
 let pritisnuto = false
+let magicno = false
+
+/** FUNCTIONS **/
 
 function slucajnaBoja() {
   let color = 'rgba('
@@ -50,7 +54,7 @@ function crtaj(e) {
   sadrzaj.lineTo(e.pageX - platno.offsetLeft, e.pageY - platno.offsetTop)
   sadrzaj.strokeStyle = platno.color
   sadrzaj.stroke()
-  azurirajMisha(e)
+  if (!magicno) azurirajMisha(e)
 }
 
 function uzmiDebljinu(broj) {
@@ -76,3 +80,4 @@ document.getElementById('cetkica1').addEventListener('click', () => uzmiDebljinu
 document.getElementById('cetkica2').addEventListener('click', () => uzmiDebljinu(10))
 document.getElementById('cetkica3').addEventListener('click', () => uzmiDebljinu(20))
 document.getElementById('brisac').addEventListener('click', obrisiPlatno)
+document.getElementById('stapic').addEventListener('click', () => magicno = !magicno)
