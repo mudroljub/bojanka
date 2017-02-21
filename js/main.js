@@ -2,13 +2,17 @@ const platno = document.getElementById('platno')
 const sadrzaj = platno.getContext('2d')
 const boje = document.getElementsByClassName('boja')
 
+const tanka = 1
+const srednja = 5
+const debela = 15
+
 const mish = {
   x: 0,
   y: 0
 }
 
 let pritisnuto = false
-let magicno = false
+let magicno = true
 
 /** FUNCTIONS **/
 
@@ -38,7 +42,7 @@ function obrisiPlatno() {
 function postaviPlatno() { // uvek ga obriše
   platno.width = window.innerWidth * 0.9
   platno.height = window.innerHeight * 0.9
-  sadrzaj.lineWidth = 10 // default debljina četkice
+  sadrzaj.lineWidth = srednja // default debljina četkice
 }
 
 function azurirajMisha(e) {
@@ -76,8 +80,8 @@ platno.addEventListener('mousedown', () => pritisnuto = true)
 platno.addEventListener('mousedown', azurirajMisha)
 platno.addEventListener('mousemove', crtaj)
 
-document.getElementById('cetkica1').addEventListener('click', () => uzmiDebljinu(5))
-document.getElementById('cetkica2').addEventListener('click', () => uzmiDebljinu(10))
-document.getElementById('cetkica3').addEventListener('click', () => uzmiDebljinu(20))
+document.getElementById('cetkica1').addEventListener('click', () => uzmiDebljinu(tanka))
+document.getElementById('cetkica2').addEventListener('click', () => uzmiDebljinu(srednja))
+document.getElementById('cetkica3').addEventListener('click', () => uzmiDebljinu(debela))
 document.getElementById('brisac').addEventListener('click', obrisiPlatno)
 document.getElementById('stapic').addEventListener('click', () => magicno = !magicno)
