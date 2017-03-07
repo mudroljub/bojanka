@@ -9,4 +9,4 @@ Isprobaj je ovde: [mudroljub.github.io/bojanka](http://mudroljub.github.io/bojan
 Možeš je pronaći i na fejsbuku: [apps.facebook.com/magic-drawing](https://apps.facebook.com/magic-drawing/)
 
 ## TODO
-- srediti za tačskrin
+- save opcija
