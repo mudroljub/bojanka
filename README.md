@@ -10,3 +10,4 @@ Možeš je pronaći i na fejsbuku: [apps.facebook.com/magic-drawing](https://app
 
 ## TODO
 - save opcija
+http://stackoverflow.com/questions/17397319/save-canvas-as-jpg-to-desktop
