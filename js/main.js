@@ -12,7 +12,7 @@ const mish = {
 }
 
 let pritisnuto = false
-let magicno = true
+let magicno = false
 
 /** FUNCTIONS **/
 
