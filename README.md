@@ -1,6 +1,6 @@
 [![](screen.png)](http://mudroljub.github.io/bojanka/)
 
-# Bojanka (*JS Paint*)
+# Bojanka (*JS Paint clone*)
 
 Bojanka za najmlađe. Ima i čarobne mogućnosti.
 
