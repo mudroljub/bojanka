@@ -1,4 +1,4 @@
-[![](screen.png)](http://mudroljub.github.io/bojanka/)
+[![Iskrica crtez](screen.jpg)](http://mudroljub.github.io/bojanka/)
 
 # Bojanka (*JS Paint clone*)
 
