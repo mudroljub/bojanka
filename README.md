@@ -2,7 +2,7 @@
 
 # Bojanka (*JS Paint clone*)
 
-Bojanka za najmlađe. Ima i čarobne mogućnosti.
+Bojanka za najmlađe. Jedna od aplikacija koje pravimo na [kursevima programiranja](https://skolakoda.org/kursevi/) u Školi koda.
 
 Isprobaj je ovde: [mudroljub.github.io/bojanka](http://mudroljub.github.io/bojanka/). 
 
