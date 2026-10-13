@@ -40,8 +40,8 @@ function obrisiPlatno() {
 }
 
 function postaviPlatno() { // uvek ga obriše
-  platno.width = window.innerWidth * 0.9
-  platno.height = window.innerHeight * 0.9
+  platno.width = platno.clientWidth
+  platno.height = platno.clientHeight
   sadrzaj.lineWidth = srednja // default debljina četkice
 }
 
@@ -74,11 +74,14 @@ window.onload = function() {
 
 window.onresize = postaviPlatno
 
-platno.addEventListener('touchmove', crtaj)
-platno.addEventListener('mouseup', () => pritisnuto = false)
-platno.addEventListener('mousedown', () => pritisnuto = true)
-platno.addEventListener('mousedown', azurirajMisha)
-platno.addEventListener('mousemove', crtaj)
+platno.addEventListener('pointerdown', e => {
+  pritisnuto = true
+  platno.setPointerCapture(e.pointerId)
+  azurirajMisha(e)
+})
+platno.addEventListener('pointermove', crtaj)
+platno.addEventListener('pointerup', () => pritisnuto = false)
+platno.addEventListener('pointercancel', () => pritisnuto = false)
 
 document.getElementById('cetkica1').addEventListener('click', () => uzmiDebljinu(tanka))
 document.getElementById('cetkica2').addEventListener('click', () => uzmiDebljinu(srednja))
